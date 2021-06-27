@@ -1,3 +1,4 @@
+(*Teste comentario*)
 Program testeproc1;
 Var
 X, y, z :integer;
