@@ -31,14 +31,17 @@ array_code.append(None)
 #Remove comentários da analise
 def check_comentarios():
     for i in range(len(array_code)):
-        if array_code[i] == '(' and array_code[i + 1] == '*':
-            inicio = i
-            for j in range(len(array_code)):
-                if array_code[j] == '*' and array_code[j + 1] == ')' and j > i:
-                    fim = j + 1
-                    while inicio <= fim:
-                        array_code.pop(inicio)
-                        inicio = inicio + 1
+        if i < len(array_code):
+            if array_code[i] == '(' and array_code[i + 1] == '*':
+                inicio = i
+                for j in range(inicio, len(array_code)):
+                    if j < len(array_code):
+                        if array_code[j] == '*' and array_code[j + 1] == ')':
+                            fim = j + 2
+                            y = inicio
+                            while y < fim:
+                                array_code.pop(inicio)
+                                y += 1
 
 #Testa as palavras reservadas que são conjuntos de 2 carateres especiais
 def check_caracteres_especiais():
@@ -79,9 +82,3 @@ busca_palavra_reservada()
 
 print(buffer_ident)
 
-
-'''
-um = str(1)
-
-print(codigo[('Cod ' + um)])
-'''
