@@ -29,9 +29,9 @@ codigo = {'Cod 1': 'Program', 'Cod 2': 'Label', 'Cod 3': 'Const', 'Cod 4': 'Var'
 string_code = re.sub(r'([^0-9A-Za-z\sç])', ' \\1 ', string_code)
 
 #Atribui literal ao buffer
-def check_literal():
-    aux = re.search(r"(['])(?:(?=(\\?))\2.)*?\1", string_code)
-    buffer_literal.append(aux.group())
+aux = re.search(r"(['])(?:(?=(\\?))\2.)*?\1", string_code)
+buffer_literal.append(aux.group())
+string_code = re.sub(r"(['])(?:(?=(\\?))\2.)*?\1", " ", string_code)
 
 #Separa a string por caracteres e palavras em um array
 array_code = string_code.split()
@@ -77,8 +77,8 @@ def check_caracteres_especiais():
 
 #Remover espaços vazios do array
 def pop_none():
-    for i in range(len(array_code)):
-        if i < len(array_code):
+    for i in range(len(array_code), -1, -1):
+        if i <= len(array_code) and i >= 0:
             if array_code[i] == None:
                 array_code.pop(i)
 
@@ -96,6 +96,7 @@ def pegacar(count):
         car = array_code[count]
         return car
 
+#Testa se é uma palavra reservada
 def busca_palavra_reservada():
     count = 0
     while count <= len(array_code):
@@ -110,8 +111,6 @@ def busca_palavra_reservada():
             buffer_ident.append(car)
         count += 1
 
-check_literal()
-
 check_comentarios()
 
 check_caracteres_especiais()
@@ -120,5 +119,5 @@ pop_none()
 
 busca_palavra_reservada()
 
-print(buffer)
+print(buffer_ident)
 
