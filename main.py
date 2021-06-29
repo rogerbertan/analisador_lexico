@@ -95,26 +95,6 @@ def pegacar(count):
     if count < len(array_code):
         car = array_code[count]
         return car
-'''
-#Procura as palavras reservadas e atribui ao buffer
-def busca_palavra_reservada():
-    for car in range(len(array_code)):
-        aux = False
-        for j in range(len(codigo)):
-            if array_code[car] == codigo['Cod ' + (str(j + 1))]:
-                buffer.append(array_code[car])
-                aux = True
-        if aux == False:
-            buffer.append('Identificador')
-
-
-
-if isnumber(car):
-            if int(car) >= -32767 and int(car) <= 32767:
-                valor.append(int(car))
-                buffer.append('Inteiro')
-                count += 1
-'''
 
 def busca_palavra_reservada():
     count = 0
@@ -123,13 +103,12 @@ def busca_palavra_reservada():
         aux = False
         for i in range(len(codigo)):
             if car == codigo['Cod ' + (str(i + 1))]:
-                buffer.append(array_code[count])
-                count += 1
+                buffer.append(car)
                 aux = True
         if aux == False:
             buffer.append('Identificador')
-            buffer_ident.append(array_code[count])
-            count += 1
+            buffer_ident.append(car)
+        count += 1
 
 check_literal()
 
