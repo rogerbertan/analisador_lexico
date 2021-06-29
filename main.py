@@ -1,13 +1,17 @@
 #importa biblioteca RegEx
 import re
 
+
 #Transfere o texto do .txt para a string
 arquivo = open('example.txt', 'r')
 string_code = arquivo.read()
 arquivo.close()
 
-#Declara buffer dos identificadores
+#Declara buffers
+buffer = list()
+valor = list()
 buffer_ident = list()
+buffer_literal = list()
 
 #Declara o dicionário
 codigo = {'Cod 1': 'Program', 'Cod 2': 'Label', 'Cod 3': 'Const', 'Cod 4': 'Var', 'Cod 5': 'Procedure',
@@ -23,6 +27,11 @@ codigo = {'Cod 1': 'Program', 'Cod 2': 'Label', 'Cod 3': 'Const', 'Cod 4': 'Var'
 
 #Cria espaços entre os caracteres especiais
 string_code = re.sub(r'([^0-9A-Za-z\sç])', ' \\1 ', string_code)
+
+#Atribui literal ao buffer
+def check_literal():
+    aux = re.search(r"(['])(?:(?=(\\?))\2.)*?\1", string_code)
+    buffer_literal.append(aux.group())
 
 #Separa a string por caracteres e palavras em um array
 array_code = string_code.split()
@@ -73,18 +82,56 @@ def pop_none():
             if array_code[i] == None:
                 array_code.pop(i)
 
+#Testa se é um valor inteiro
+def isnumber(value):
+    try:
+        int(value)
+    except ValueError:
+        return False
+    return True
+
+#Atribui o próximo caractér a variável CAR
+def pegacar(count):
+    if count < len(array_code):
+        car = array_code[count]
+        return car
+'''
 #Procura as palavras reservadas e atribui ao buffer
 def busca_palavra_reservada():
-    for i in range(len(array_code)):
+    for car in range(len(array_code)):
         aux = False
         for j in range(len(codigo)):
-            if array_code[i] == codigo['Cod ' + (str(j + 1))]:
-                buffer_ident.append(array_code[i])
+            if array_code[car] == codigo['Cod ' + (str(j + 1))]:
+                buffer.append(array_code[car])
                 aux = True
         if aux == False:
-            buffer_ident.append('literal')
+            buffer.append('Identificador')
 
 
+
+if isnumber(car):
+            if int(car) >= -32767 and int(car) <= 32767:
+                valor.append(int(car))
+                buffer.append('Inteiro')
+                count += 1
+'''
+
+def busca_palavra_reservada():
+    count = 0
+    while count <= len(array_code):
+        car = pegacar(count)
+        aux = False
+        for i in range(len(codigo)):
+            if car == codigo['Cod ' + (str(i + 1))]:
+                buffer.append(array_code[count])
+                count += 1
+                aux = True
+        if aux == False:
+            buffer.append('Identificador')
+            buffer_ident.append(array_code[count])
+            count += 1
+
+check_literal()
 
 check_comentarios()
 
@@ -94,5 +141,5 @@ pop_none()
 
 busca_palavra_reservada()
 
-print(buffer_ident)
+print(buffer)
 

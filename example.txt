@@ -10,6 +10,7 @@ Readln(a);
 If a=x then
 z:=z+x
 Else begin
+'Teste string aqui'
 Z:=z-x;
 Call p;
 End;
