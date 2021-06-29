@@ -11,7 +11,7 @@ buffer_ident = list()
 
 #Declara o dicionário
 codigo = {'Cod 1': 'Program', 'Cod 2': 'Label', 'Cod 3': 'Const', 'Cod 4': 'Var', 'Cod 5': 'Procedure',
-          'Cod 6': 'Begin', 'Cod 7': 'End', 'Cod 8': 'Integer', 'Cod 9': 'Array', 'Cod 10': 'Of', 
+          'Cod 6': 'Begin', 'Cod 7': 'End', 'Cod 8': 'integer', 'Cod 9': 'Array', 'Cod 10': 'Of', 
           'Cod 11': 'Call', 'Cod 12': 'Goto', 'Cod 13': 'If', 'Cod 14': 'then', 'Cod 15': 'Else', 
           'Cod 16': 'While', 'Cod 17': 'Do', 'Cod 18': 'Repeat', 'Cod 19': 'Until', 'Cod 20': 'Readln', 
           'Cod 21': 'Writeln', 'Cod 22': 'Or', 'Cod 23': 'And', 'Cod 24': 'Not', 'Cod 25': 'Identificador', 
@@ -66,17 +66,31 @@ def check_caracteres_especiais():
                 array_code[i] = '..'
                 array_code[i + 1] = None
 
+#Remover espaços vazios do array
+def pop_none():
+    for i in range(len(array_code)):
+        if i < len(array_code):
+            if array_code[i] == None:
+                array_code.pop(i)
+
 #Procura as palavras reservadas e atribui ao buffer
 def busca_palavra_reservada():
     for i in range(len(array_code)):
+        aux = False
         for j in range(len(codigo)):
             if array_code[i] == codigo['Cod ' + (str(j + 1))]:
                 buffer_ident.append(array_code[i])
+                aux = True
+        if aux == False:
+            buffer_ident.append('literal')
+
 
 
 check_comentarios()
 
 check_caracteres_especiais()
+
+pop_none()
 
 busca_palavra_reservada()
 
