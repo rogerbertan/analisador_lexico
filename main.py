@@ -1,4 +1,5 @@
 #importa biblioteca RegEx
+from os import error, set_inheritable
 import re
 
 
@@ -91,6 +92,13 @@ def isnumber(value):
         return False
     return True
 
+def trylower(value):
+    try:
+        value = value.lower()
+    except AttributeError:
+        return False
+    return True
+
 #Atribui o próximo caractér a variável CAR
 def pegacar(count):
     if count < len(array_code):
@@ -114,7 +122,16 @@ def busca_palavra_reservada():
                 aux = True
         elif aux == False:
             buffer.append('Identificador')
-            buffer_ident.append(car)
+            rep = False
+            for i in range(len(buffer_ident)):
+                if trylower(car):
+                    if buffer_ident[i] == car.lower():
+                        rep = True
+            if not rep:
+                if trylower(car):
+                    buffer_ident.append(car.lower())
+                else:
+                    buffer_ident.append(car)
         count += 1
     buffer_ident.pop()
     buffer.pop()
@@ -127,6 +144,7 @@ check_caracteres_especiais()
 pop_none()
 busca_palavra_reservada()
 
+#Menu para seleçao de exibiçao dos buffers
 while op != 5:
     op = int(input('\n1 - Mostrar buffer\n2 - Mostrar buffer literal\n3 - Mostrar buffer de identificadores\n4 - Mostrar buffer de valores\n5 - Sair\n\nEscolha uma opçao: '))
     if op == 1:
