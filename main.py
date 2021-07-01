@@ -78,7 +78,7 @@ def check_caracteres_especiais():
 #Remover espaços vazios do array
 def pop_none():
     for i in range(len(array_code), -1, -1):
-        if i <= len(array_code) and i >= 0:
+        if i < len(array_code) and i >= 0:
             if array_code[i] == None:
                 array_code.pop(i)
 
@@ -110,6 +110,8 @@ def busca_palavra_reservada():
             buffer.append('Identificador')
             buffer_ident.append(car)
         count += 1
+    buffer_ident.pop()
+    buffer.pop()
 
 check_comentarios()
 
@@ -119,5 +121,5 @@ pop_none()
 
 busca_palavra_reservada()
 
-print(buffer_ident)
+print(buffer)
 
