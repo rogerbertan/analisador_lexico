@@ -92,6 +92,7 @@ def isnumber(value):
         return False
     return True
 
+#Testa se a string pode ser convertida para minúscula
 def trylower(value):
     try:
         value = value.lower()
@@ -113,7 +114,7 @@ def busca_palavra_reservada():
         aux = False
         for i in range(len(codigo)):
             if car == codigo['Cod ' + (str(i + 1))]:
-                buffer.append(car)
+                buffer.append('Cod ' + (str(i + 1)))
                 aux = True
         if isnumber(car):
             car = int(car)
@@ -121,7 +122,7 @@ def busca_palavra_reservada():
                 valor.append(int(car))
                 aux = True
         elif aux == False:
-            buffer.append('Identificador')
+            buffer.append('Cod 25')
             rep = False
             for i in range(len(buffer_ident)):
                 if trylower(car):
@@ -163,8 +164,3 @@ while op != 5:
         print('Saindo...')
     else:
         print('\nOpçao Inválida...')
-
-
-
-
-
