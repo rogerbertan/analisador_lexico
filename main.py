@@ -77,16 +77,17 @@ def check_caracteres_especiais():
 
 #Remover espaços vazios do array
 def pop_none():
-    for i in range(len(array_code), -1, -1):
-        if i < len(array_code) and i >= 0:
-            if array_code[i] == None:
-                array_code.pop(i)
+    for i in range(len(array_code)-1, -1, -1):
+        if array_code[i] == None:
+            array_code.pop(i)
 
 #Testa se é um valor inteiro
 def isnumber(value):
     try:
         int(value)
     except ValueError:
+        return False
+    except TypeError:
         return False
     return True
 
@@ -106,20 +107,46 @@ def busca_palavra_reservada():
             if car == codigo['Cod ' + (str(i + 1))]:
                 buffer.append(car)
                 aux = True
-        if aux == False:
+        if isnumber(car):
+            car = int(car)
+            if -32767 <= car <= 32767:
+                valor.append(int(car))
+                aux = True
+        elif aux == False:
             buffer.append('Identificador')
             buffer_ident.append(car)
         count += 1
     buffer_ident.pop()
     buffer.pop()
 
+op = 0
+
+#Main
 check_comentarios()
-
 check_caracteres_especiais()
-
 pop_none()
-
 busca_palavra_reservada()
 
-print(buffer)
+while op != 5:
+    op = int(input('\n1 - Mostrar buffer\n2 - Mostrar buffer literal\n3 - Mostrar buffer de identificadores\n4 - Mostrar buffer de valores\n5 - Sair\n\nEscolha uma opçao: '))
+    if op == 1:
+        print('\n')
+        print(buffer)
+    elif op == 2:
+        print('\n')
+        print(buffer_literal)
+    elif op == 3:
+        print('\n')
+        print(buffer_ident)
+    elif op == 4:
+        print('\n')
+        print(valor)
+    elif op == 5:
+        print('Saindo...')
+    else:
+        print('\nOpçao Inválida...')
+
+
+
+
 

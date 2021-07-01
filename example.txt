@@ -2,6 +2,7 @@
 Program testeproc1;
 Var
 X, y, z :integer;
+x:=23;
 Procedure P;
 Var
 A :integer;
@@ -9,6 +10,7 @@ Begin
 Readln(a);
 If a=x then
 z:=z+x
+x:=531;
 Else begin
 'Teste string aqui'
 Z:=z-x;
