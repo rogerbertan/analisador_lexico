@@ -1,5 +1,4 @@
 #importa biblioteca RegEx
-from os import error, set_inheritable
 import re
 
 
@@ -32,7 +31,7 @@ string_code = re.sub(r'([^0-9A-Za-z\sç])', ' \\1 ', string_code)
 #Atribui literal ao buffer
 aux = re.search(r"(['])(?:(?=(\\?))\2.)*?\1", string_code)
 buffer_literal.append(aux.group())
-string_code = re.sub(r"(['])(?:(?=(\\?))\2.)*?\1", " ", string_code)
+string_code = re.sub(r"(['])(?:(?=(\\?))\2.)*?\1", "literal", string_code)
 
 #Separa a string por caracteres e palavras em um array
 array_code = string_code.split()
