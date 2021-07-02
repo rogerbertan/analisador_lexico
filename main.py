@@ -1,5 +1,4 @@
 #importa biblioteca RegEx
-from os import error, set_inheritable
 import re
 
 
